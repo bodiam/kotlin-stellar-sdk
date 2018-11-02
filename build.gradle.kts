@@ -14,6 +14,8 @@ repositories {
 
 dependencies {
     compile(kotlin("stdlib-jdk8"))
+    compile("com.google.guava:guava:26.0-android")
+    compile("net.i2p.crypto:eddsa:0.3.0")
     testCompile("junit", "junit", "4.12")
 }
 
