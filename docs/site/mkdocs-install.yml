@@ -1,0 +1,12 @@
+site_name: Kotlin Stellar SDK
+
+nav:
+- Home: index.md
+- Getting Started: getting-started.md
+- Examples: examples.md
+- Android: android.md
+- Spring Boot: spring-boot.md
+- License: spring-boot.md
+
+theme:
+  name: 'material'
