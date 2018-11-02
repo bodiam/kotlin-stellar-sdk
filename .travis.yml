@@ -4,5 +4,7 @@ jdk:
 - oraclejdk9
 - oraclejdk11
 - openjdk8
-after_success:
-- bash <(curl -s https://codecov.io/bash)
+test:
+  post:
+    - ./gradlew jacocoTestReport
+    - bash <(curl -s https://codecov.io/bash)
