@@ -1,0 +1,5 @@
+= Kotlin-Stellar-SDK
+
+The Kotlin Stellar SDK is an SDK for the Stellar Lumens network, written in Kotlin, and specifically targeted for Java and Android applications
+
+image::https://travis-ci.org/bodiam/kotlin-stellar-sdk.svg?branch=master[Build status]
