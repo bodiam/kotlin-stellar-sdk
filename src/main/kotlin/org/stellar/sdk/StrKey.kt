@@ -56,6 +56,7 @@ internal object StrKey {
         return decodeCheck(VersionByte.SHA256_HASH, data.toCharArray())
     }
 
+    @JvmStatic
     fun encodeCheck(versionByte: VersionByte, data: ByteArray): CharArray {
         try {
             val outputStream = ByteArrayOutputStream()
@@ -94,6 +95,7 @@ internal object StrKey {
 
     }
 
+    @JvmStatic
     fun decodeCheck(versionByte: VersionByte, encoded: CharArray): ByteArray {
         val bytes = ByteArray(encoded.size)
         for (i in encoded.indices) {
