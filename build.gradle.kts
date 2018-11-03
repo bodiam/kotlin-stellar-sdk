@@ -15,6 +15,9 @@ repositories {
 
 dependencies {
     compile(kotlin("stdlib-jdk8"))
+
+    // Temp dependency
+    compile("com.google.code.gson:gson:2.8.5")
     compile("com.google.guava:guava:26.0-android")
     compile("net.i2p.crypto:eddsa:0.3.0")
     testCompile("junit", "junit", "4.12")
