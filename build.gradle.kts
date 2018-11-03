@@ -33,3 +33,7 @@ tasks.withType<JacocoReport> {
         html.isEnabled = false
     }
 }
+
+jacoco {
+    toolVersion = "0.8.2"
+}
