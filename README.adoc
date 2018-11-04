@@ -1,7 +1,54 @@
 = Kotlin-Stellar-SDK
+:sdk-version: 0.1
 
-The Kotlin Stellar SDK is an SDK for the Stellar Lumens network, written in Kotlin, and specifically targeted for Java and Android applications
+The Kotlin Stellar SDK is an SDK for the Stellar Lumens network, written in Kotlin, and specifically targeted for Java and Android applications.
 
 image::https://travis-ci.org/bodiam/kotlin-stellar-sdk.svg?branch=master["Build Status", link="https://travis-ci.org/bodiam/kotlin-stellar-sdk"]
 image::https://api.codeclimate.com/v1/badges/f84aaa3af23b2dc3ab40/maintainability["Maintainability", link="https://codeclimate.com/github/bodiam/kotlin-stellar-sdk/maintainability"]
 image::https://codecov.io/gh/bodiam/kotlin-stellar-sdk/branch/master/graph/badge.svg["Code coverage", link="https://codecov.io/gh/bodiam/kotlin-stellar-sdk"]
+
+
+== 🚀 Installation
+
+### Maven
+
+The kotlin-stellar-sdk is hosted on jCenter and Maven Central.
+
+[source,xml,subs="verbatim,attributes"]
+----
+<dependency>
+  <groupId>io.openmotion</groupId>
+  <artifactId>kotlin-stellar-sdk</artifactId>
+  <version>{sdk-version}</version>
+</dependency>
+----
+
+The list of versions to install can be found in the Releases section.
+
+### Gradle
+
+`build.gradle`
+
+[source,groovy,subs="verbatim,attributes"]
+----
+compile 'io.openmotion.kotlin-stellar-sdk:{sdk-version}'
+----
+
+`build.gradle.kts`
+
+[source,kotin,subs="verbatim,attributes"]
+----
+compile("io.openmotion.kotlin-stellar-sdk:{sdk-version}")
+----
+
+== 🚀 Usage
+
+For examples on how to use this library, take a look at the Get Started docs.
+
+== 🚀 Contributing
+
+See our contributing guidelines for more information.
+
+== 🚀 License
+
+java-stellar-sdk is licensed under an Apache-2.0 license. See the LICENSE file for details.
