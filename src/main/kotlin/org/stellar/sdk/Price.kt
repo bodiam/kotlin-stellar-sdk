@@ -2,6 +2,7 @@ package org.stellar.sdk
 
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
 
 typealias XDRPrice = org.stellar.sdk.xdr.Price
@@ -44,7 +45,7 @@ data class Price(@field:SerializedName("n") val numerator: Int,
                 if (number.compareTo(maxInt) > 0) {
                     break
                 }
-                a = number.setScale(0, BigDecimal.ROUND_FLOOR)
+                a = number.setScale(0, RoundingMode.FLOOR)
                 f = number.subtract(a)
                 val h = a.multiply(fractions[i - 1][0]).add(fractions[i - 2][0])
                 val k = a.multiply(fractions[i - 1][1]).add(fractions[i - 2][1])
@@ -55,7 +56,7 @@ data class Price(@field:SerializedName("n") val numerator: Int,
                 if (f.compareTo(BigDecimal.ZERO) == 0) {
                     break
                 }
-                number = BigDecimal(1).divide(f, 20, BigDecimal.ROUND_HALF_UP)
+                number = BigDecimal(1).divide(f, 20, RoundingMode.HALF_UP)
                 i = i + 1
             }
             val n = fractions[fractions.size - 1][0]
