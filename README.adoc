@@ -4,9 +4,6 @@
 The Kotlin Stellar SDK is an SDK for the Stellar Lumens network, written in Kotlin, and specifically targeted for Java and Android applications.
 
 image::https://travis-ci.org/bodiam/kotlin-stellar-sdk.svg?branch=master["Build Status", link="https://travis-ci.org/bodiam/kotlin-stellar-sdk"]
-image::https://api.codeclimate.com/v1/badges/f84aaa3af23b2dc3ab40/maintainability["Maintainability", link="https://codeclimate.com/github/bodiam/kotlin-stellar-sdk/maintainability"]
-image::https://codecov.io/gh/bodiam/kotlin-stellar-sdk/branch/master/graph/badge.svg["Code coverage", link="https://codecov.io/gh/bodiam/kotlin-stellar-sdk"]
-
 
 == 🚀 Installation
 
@@ -51,4 +48,4 @@ See our contributing guidelines for more information.
 
 == 🚀 License
 
-java-stellar-sdk is licensed under an Apache-2.0 license. See the LICENSE file for details.
+kotlin-stellar-sdk is licensed under an Apache-2.0 license. See the LICENSE file for details.

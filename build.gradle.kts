@@ -21,6 +21,8 @@ dependencies {
     compile("com.google.guava:guava:26.0-android")
     compile("net.i2p.crypto:eddsa:0.3.0")
     compile("com.squareup.okhttp3:okhttp:3.11.0")
+
+    testCompile ("com.squareup.okhttp3:mockwebserver:3.11.0")
     testCompile("junit", "junit", "4.12")
 }
 
