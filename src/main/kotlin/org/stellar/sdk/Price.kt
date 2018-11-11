@@ -42,14 +42,14 @@ data class Price(@field:SerializedName("n") val numerator: Int,
             fractions.add(arrayOf(BigDecimal(1), BigDecimal(0)))
             var i = 2
             while (true) {
-                if (number.compareTo(maxInt) > 0) {
+                if (number > maxInt) {
                     break
                 }
                 a = number.setScale(0, RoundingMode.FLOOR)
                 f = number.subtract(a)
                 val h = a.multiply(fractions[i - 1][0]).add(fractions[i - 2][0])
                 val k = a.multiply(fractions[i - 1][1]).add(fractions[i - 2][1])
-                if (h.compareTo(maxInt) > 0 || k.compareTo(maxInt) > 0) {
+                if (h > maxInt || k > maxInt) {
                     break
                 }
                 fractions.add(arrayOf(h, k))
@@ -57,7 +57,7 @@ data class Price(@field:SerializedName("n") val numerator: Int,
                     break
                 }
                 number = BigDecimal(1).divide(f, 20, RoundingMode.HALF_UP)
-                i = i + 1
+                i += 1
             }
             val n = fractions[fractions.size - 1][0]
             val d = fractions[fractions.size - 1][1]
