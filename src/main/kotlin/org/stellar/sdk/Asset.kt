@@ -2,6 +2,7 @@ package org.stellar.sdk
 
 import org.stellar.sdk.xdr.AssetType
 import org.stellar.sdk.xdr.AssetType.*
+import java.util.*
 import org.stellar.sdk.xdr.Asset as XDRAsset
 
 /**
@@ -14,6 +15,8 @@ abstract class Asset {
      * Generates XDR object from a given Asset object
      */
     abstract fun toXdr(): XDRAsset
+
+    abstract override fun equals(other: Any?): Boolean
 
     companion object {
 
@@ -31,7 +34,8 @@ abstract class Asset {
          * @param code Asset code
          * @param issuer Asset issuer
          */
-        private fun createNonNativeAsset(code: String, issuer: KeyPair): Asset {
+        @JvmStatic
+        fun createNonNativeAsset(code: String, issuer: KeyPair): Asset {
             return when {
                 code.length in 1..4 -> IssuedAsset4(code, issuer)
                 code.length in 5..12 -> IssuedAsset12(code, issuer)
@@ -74,6 +78,14 @@ object NativeAsset : Asset() {
         xdr.discriminant = AssetType.ASSET_TYPE_NATIVE
         return xdr
     }
+
+    override fun equals(other: Any?): Boolean {
+        return this.javaClass == other!!.javaClass
+    }
+
+    override fun hashCode(): Int {
+        return 0
+    }
 }
 
 
@@ -81,14 +93,28 @@ object NativeAsset : Asset() {
  * Base class for IssuedAsset4 and IssuedAsset12 subclasses.
  * @see [Assets](https://www.stellar.org/developers/learn/concepts/assets.html)
  */
-abstract class NonNativeAsset(open val code: String, open val issuer: KeyPair, val type: String) : Asset()
+abstract class NonNativeAsset(open val code: String, open val issuer: KeyPair, val type: String) : Asset() {
+    override fun hashCode(): Int {
+        return Arrays.hashCode(arrayOf(code, issuer.accountId))
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this.javaClass != other!!.javaClass) {
+            return false
+        }
+
+        val o = other as NonNativeAsset?
+
+        return this.code == o!!.code && this.issuer.accountId == o!!.issuer.accountId
+    }
+}
 
 
 /**
  * Represents all assets with codes 5-12 characters long.
  * @see [Assets](https://www.stellar.org/developers/learn/concepts/assets.html)
  */
-data class IssuedAsset12(override val code: String, override val issuer: KeyPair) : NonNativeAsset(code, issuer, "credit_alphanum12") {
+class IssuedAsset12(override val code: String, override val issuer: KeyPair) : NonNativeAsset(code, issuer, "credit_alphanum12") {
 
     init {
         if (code.length < 5 || code.length > 12) {
@@ -111,7 +137,7 @@ data class IssuedAsset12(override val code: String, override val issuer: KeyPair
  * Represents all assets with codes 1-4 characters long.
  * @see [Assets](https://www.stellar.org/developers/learn/concepts/assets.html)
  */
-data class IssuedAsset4(override val code: String, override val issuer: KeyPair) : NonNativeAsset(code, issuer, "credit_alphanum4") {
+class IssuedAsset4(override val code: String, override val issuer: KeyPair) : NonNativeAsset(code, issuer, "credit_alphanum4") {
 
     init {
         if (code.isEmpty() || code.length > 4) {
