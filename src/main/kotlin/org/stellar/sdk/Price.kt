@@ -1,7 +1,6 @@
 package org.stellar.sdk
 
 import com.google.gson.annotations.SerializedName
-import org.stellar.sdk.xdr.Int32
 import java.math.BigDecimal
 import java.util.*
 

@@ -11,19 +11,19 @@ public class AssetTest {
 
   @Test
   public void testAssetTypeNative() {
-    AssetTypeNative asset = new AssetTypeNative();
+    NativeAsset asset = NativeAsset.INSTANCE;
     org.stellar.sdk.xdr.Asset xdr = asset.toXdr();
     Asset parsedAsset = Asset.fromXdr(xdr);
-    assertTrue(parsedAsset instanceof AssetTypeNative);
+    assertTrue(parsedAsset instanceof NativeAsset);
   }
 
   @Test
   public void testAssetTypeCreditAlphaNum4() {
     String code = "USDA";
     KeyPair issuer = KeyPair.random();
-    AssetTypeCreditAlphaNum4 asset = new AssetTypeCreditAlphaNum4(code, issuer);
+    IssuedAsset4 asset = new IssuedAsset4(code, issuer);
     org.stellar.sdk.xdr.Asset xdr = asset.toXdr();
-    AssetTypeCreditAlphaNum4 parsedAsset = (AssetTypeCreditAlphaNum4) Asset.fromXdr(xdr);
+    IssuedAsset4 parsedAsset = (IssuedAsset4) Asset.fromXdr(xdr);
     assertEquals(code, asset.getCode());
     assertEquals(issuer.getAccountId(), parsedAsset.getIssuer().getAccountId());
   }
@@ -32,9 +32,9 @@ public class AssetTest {
   public void testAssetTypeCreditAlphaNum12() {
     String code = "TESTTEST";
     KeyPair issuer = KeyPair.random();
-    AssetTypeCreditAlphaNum12 asset = new AssetTypeCreditAlphaNum12(code, issuer);
+    IssuedAsset12 asset = new IssuedAsset12(code, issuer);
     org.stellar.sdk.xdr.Asset xdr = asset.toXdr();
-    AssetTypeCreditAlphaNum12 parsedAsset = (AssetTypeCreditAlphaNum12) Asset.fromXdr(xdr);
+    IssuedAsset12 parsedAsset = (IssuedAsset12) Asset.fromXdr(xdr);
     assertEquals(code, asset.getCode());
     assertEquals(issuer.getAccountId(), parsedAsset.getIssuer().getAccountId());
   }
@@ -45,19 +45,19 @@ public class AssetTest {
     KeyPair issuer2 = KeyPair.random();
 
     // Equal
-    assertEquals(new AssetTypeNative().hashCode(), new AssetTypeNative().hashCode());
-    assertEquals(new AssetTypeCreditAlphaNum4("USD", issuer1).hashCode(), new AssetTypeCreditAlphaNum4("USD", issuer1).hashCode());
-    assertEquals(new AssetTypeCreditAlphaNum12("ABCDE", issuer1).hashCode(), new AssetTypeCreditAlphaNum12("ABCDE", issuer1).hashCode());
+    assertEquals(NativeAsset.INSTANCE.hashCode(), NativeAsset.INSTANCE.hashCode());
+    assertEquals(new IssuedAsset4("USD", issuer1).hashCode(), new IssuedAsset4("USD", issuer1).hashCode());
+    assertEquals(new IssuedAsset12("ABCDE", issuer1).hashCode(), new IssuedAsset12("ABCDE", issuer1).hashCode());
 
     // Not equal
-    assertNotEquals(new AssetTypeNative().hashCode(), new AssetTypeCreditAlphaNum4("USD", issuer1).hashCode());
-    assertNotEquals(new AssetTypeNative().hashCode(), new AssetTypeCreditAlphaNum12("ABCDE", issuer1).hashCode());
-    assertNotEquals(new AssetTypeCreditAlphaNum4("EUR", issuer1).hashCode(), new AssetTypeCreditAlphaNum4("USD", issuer1).hashCode());
-    assertNotEquals(new AssetTypeCreditAlphaNum4("EUR", issuer1).hashCode(), new AssetTypeCreditAlphaNum4("EUR", issuer2).hashCode());
-    assertNotEquals(new AssetTypeCreditAlphaNum4("EUR", issuer1).hashCode(), new AssetTypeCreditAlphaNum12("EUROPE", issuer1).hashCode());
-    assertNotEquals(new AssetTypeCreditAlphaNum4("EUR", issuer1).hashCode(), new AssetTypeCreditAlphaNum12("EUROPE", issuer2).hashCode());
-    assertNotEquals(new AssetTypeCreditAlphaNum12("ABCDE", issuer1).hashCode(), new AssetTypeCreditAlphaNum12("EDCBA", issuer1).hashCode());
-    assertNotEquals(new AssetTypeCreditAlphaNum12("ABCDE", issuer1).hashCode(), new AssetTypeCreditAlphaNum12("ABCDE", issuer2).hashCode());
+    assertNotEquals(NativeAsset.INSTANCE.hashCode(), new IssuedAsset4("USD", issuer1).hashCode());
+    assertNotEquals(NativeAsset.INSTANCE.hashCode(), new IssuedAsset12("ABCDE", issuer1).hashCode());
+    assertNotEquals(new IssuedAsset4("EUR", issuer1).hashCode(), new IssuedAsset4("USD", issuer1).hashCode());
+    assertNotEquals(new IssuedAsset4("EUR", issuer1).hashCode(), new IssuedAsset4("EUR", issuer2).hashCode());
+    assertNotEquals(new IssuedAsset4("EUR", issuer1).hashCode(), new IssuedAsset12("EUROPE", issuer1).hashCode());
+    assertNotEquals(new IssuedAsset4("EUR", issuer1).hashCode(), new IssuedAsset12("EUROPE", issuer2).hashCode());
+    assertNotEquals(new IssuedAsset12("ABCDE", issuer1).hashCode(), new IssuedAsset12("EDCBA", issuer1).hashCode());
+    assertNotEquals(new IssuedAsset12("ABCDE", issuer1).hashCode(), new IssuedAsset12("ABCDE", issuer2).hashCode());
   }
 
   @Test
@@ -65,15 +65,15 @@ public class AssetTest {
     KeyPair issuer1 = KeyPair.random();
     KeyPair issuer2 = KeyPair.random();
 
-    assertEquals(new AssetTypeNative(), new AssetTypeNative());
-    assertEquals(new AssetTypeCreditAlphaNum4("USD", issuer1), new AssetTypeCreditAlphaNum4("USD", issuer1));
-    assertEquals(new AssetTypeCreditAlphaNum12("ABCDE", issuer1), new AssetTypeCreditAlphaNum12("ABCDE", issuer1));
+    assertEquals(NativeAsset.INSTANCE, NativeAsset.INSTANCE);
+    assertEquals(new IssuedAsset4("USD", issuer1), new IssuedAsset4("USD", issuer1));
+    assertEquals(new IssuedAsset12("ABCDE", issuer1), new IssuedAsset12("ABCDE", issuer1));
 
-    assertNotEquals(new AssetTypeNative(), new AssetTypeCreditAlphaNum4("USD", issuer1));
-    assertNotEquals(new AssetTypeNative(), new AssetTypeCreditAlphaNum12("ABCDE", issuer1));
-    assertNotEquals(new AssetTypeCreditAlphaNum4("EUR", issuer1), new AssetTypeCreditAlphaNum4("USD", issuer1));
-    assertNotEquals(new AssetTypeCreditAlphaNum4("EUR", issuer1), new AssetTypeCreditAlphaNum4("EUR", issuer2));
-    assertNotEquals(new AssetTypeCreditAlphaNum12("ABCDE", issuer1), new AssetTypeCreditAlphaNum12("EDCBA", issuer1));
-    assertNotEquals(new AssetTypeCreditAlphaNum12("ABCDE", issuer1), new AssetTypeCreditAlphaNum12("ABCDE", issuer2));
+    assertNotEquals(NativeAsset.INSTANCE, new IssuedAsset4("USD", issuer1));
+    assertNotEquals(NativeAsset.INSTANCE, new IssuedAsset12("ABCDE", issuer1));
+    assertNotEquals(new IssuedAsset4("EUR", issuer1), new IssuedAsset4("USD", issuer1));
+    assertNotEquals(new IssuedAsset4("EUR", issuer1), new IssuedAsset4("EUR", issuer2));
+    assertNotEquals(new IssuedAsset12("ABCDE", issuer1), new IssuedAsset12("EDCBA", issuer1));
+    assertNotEquals(new IssuedAsset12("ABCDE", issuer1), new IssuedAsset12("ABCDE", issuer2));
   }
 }
